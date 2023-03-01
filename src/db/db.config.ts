@@ -1,4 +1,5 @@
 import { DataSource } from "typeorm"
+import { User } from "./entities/user.entity";
 import { logging } from "./log.entity";
 
 export const myDataSource = [
@@ -12,7 +13,7 @@ export const myDataSource = [
         username: String(process.env.username),
         password: String(process.env.password),
         database: String(process.env.database),
-        entities: [logging],
+        entities: [logging, User],
         logging: true,
         synchronize: true,
     })
