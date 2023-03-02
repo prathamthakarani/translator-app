@@ -1,3 +1,4 @@
+import { ConfigService } from "@nestjs/config";
 import { DataSource } from "typeorm"
 import { User } from "./entities/user.entity";
 import { logging } from "./log.entity";
@@ -19,6 +20,6 @@ export const myDataSource = [
     })
 
     return await datasource.initialize();
-  }
+  } 
 }
 ]

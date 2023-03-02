@@ -17,10 +17,10 @@ import { JwtService } from '@nestjs/jwt';
   providers: [AppService, TranslatorService,AuthService, JwtService],
 })
 // export class AppModule {}
-export class AppModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(LoggerMiddleware)
-      .forRoutes(TranslatorController);
-  }
+export class AppModule  {
+  // configure(consumer: MiddlewareConsumer) {
+  //   consumer
+  //     .apply(LoggerMiddleware)
+  //     .forRoutes(TranslatorController);
+  // }
 }

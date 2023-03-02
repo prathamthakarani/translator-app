@@ -8,7 +8,7 @@ export class logging{
 
   @ManyToOne(() => User, (user) => user.userId)
   @JoinColumn({name: 'userId'})
-  user: number;
+  userId: number;
 
   @Column()
   url: string;

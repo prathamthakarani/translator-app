@@ -4,7 +4,7 @@ import { logging } from '../log.entity';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
-  @OneToMany(()=>logging, (logId)=>logId.id)
+  @OneToMany(()=>logging, (logId)=>logId.userId)
   userId: string;
 
   @Column({ unique: true})

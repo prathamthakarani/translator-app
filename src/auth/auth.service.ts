@@ -36,7 +36,7 @@ export class AuthService {
           "You are registered, please login through your credentials"
         );
       } else {
-        throw new BadRequestException("Unable to register");
+        throw new BadRequestException("Not able To ReGister");
       }
     }
   }
@@ -64,7 +64,7 @@ export class AuthService {
       }
     } catch (error) {
       console.log(error);
-      throw new BadRequestException('Unable to log in');
+      throw new BadRequestException('NOt able TO logIn');
     }
   }
 }
