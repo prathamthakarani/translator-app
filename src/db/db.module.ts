@@ -6,8 +6,8 @@ import { myDataSource } from './db.config';
 
 @Global()
 @Module({
-
-providers:[...myDataSource,AuthService, JwtService],
+imports: [],
+providers:[...myDataSource],
 exports:[...myDataSource ]
 
 })

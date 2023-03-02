@@ -1,13 +1,17 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { logging } from '../log.entity';
 
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn()
+  @OneToMany(()=>logging, (logId)=>logId.id)
   userId: string;
 
-  @Column({ unique: true, length: 100 })
+  @Column({ unique: true})
   userEmail: string;
 
-  @Column({ length: 100 })
+  @Column()
   userPassword: string;
+
+
 }
