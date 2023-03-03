@@ -1,4 +1,4 @@
-import { BadRequestException, Inject, Injectable } from "@nestjs/common";
+import {  HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
 import { User } from "src/db/entities/user.entity";
 import { LoginResponseDto } from "src/translator/dto/res/login.res.dto";
 import { RegistrationResponseDto } from "src/translator/dto/res/reg.res.dto";
@@ -6,14 +6,16 @@ import { UserDto } from "src/translator/dto/user.dto";
 import { DataSource } from "typeorm";
 import { JwtService } from "@nestjs/jwt";
 
+
 @Injectable()
 export class AuthService {
   constructor(
     @Inject("datasource") private dataSource: DataSource,
     private jwtService: JwtService
-    
-  ) {}
-  
+  ) {
+    // console.log(jwtService)
+    // console.log()
+  }
 
   async registerUser(
     registerUserDto: UserDto
@@ -33,10 +35,10 @@ export class AuthService {
       if (error.code == 23505) {
         return new RegistrationResponseDto(
           false,
-          "You are registered, please login through your credentials"
+          "You are already registered person, please login through your credentials"
         );
       } else {
-        throw new BadRequestException("Not able To ReGister");
+        throw new HttpException('Not Able to login please try again', HttpStatus.BAD_REQUEST);
       }
     }
   }
@@ -48,23 +50,26 @@ export class AuthService {
       const user = await this.dataSource.manager.findOneBy(User, { userEmail });
       if (user) {
         const userId = user.userId;
-        if (await (userPassword === user.userPassword)) {
-          const token: string = await this.jwtService.signAsync({ userId }, {secret: process.env.JWT_SECRET_KEY});
-          console.log("hi")
-          return new LoginResponseDto(true, 'Login Successful', token);
+        if ( (userPassword === user.userPassword)) {
+          const token: string = await this.jwtService.signAsync(
+            { userId },
+            { secret: process.env.JWT_SECRET_KEY }
+          );
+          // console.log("hi");
+          return new LoginResponseDto(true, "Login ho gaya bhai", token,);
         } else {
-          return new LoginResponseDto(false, 'Your password is incorrect');
+          return new LoginResponseDto(false, "Password toh shi dalo na ");
         }
       }
       if (!user) {
         return new LoginResponseDto(
           false,
-          'You are not registered. Please Register first',
+          "You are not registered. Please Register first"
         );
       }
     } catch (error) {
-      console.log(error);
-      throw new BadRequestException('NOt able TO logIn');
+
+      throw new HttpException('Not Able to login please try again', HttpStatus.BAD_REQUEST);
     }
   }
 }

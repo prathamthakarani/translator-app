@@ -8,18 +8,18 @@ export class TranslationDto {
   // @IsEnum(supportedLang)
   @IsNotEmpty()
   @IsString()
-  @ApiProperty({name:"Target Language",description:"Write the target language ",type:"string",required:true})
+  @ApiProperty({name:"tl",description:"Write the target language ",type:"string",required:true})
   readonly tl: string;
 
   @IsIn(['en','gu','bn','bho','hi','sd','ta'])
   @IsNotEmpty()
   @IsString()
-  @ApiProperty({name:"Source Language",description:"Write the source language ",type:"string",required:true})
+  @ApiProperty({name:"sl",description:"Write the source language ",type:"string",required:true})
   readonly sl: string;
 
   @IsNotEmpty()
   @IsString({ each: true })
-  @ApiProperty({name:"text",description:"Write the text that you want to convert from source to target language ",type:"string",required:true})
+  @ApiProperty({name:"texts",description:"Write the text that you want to convert from source to target language ",type:"string",required:true})
   readonly texts: string;
 }
 
